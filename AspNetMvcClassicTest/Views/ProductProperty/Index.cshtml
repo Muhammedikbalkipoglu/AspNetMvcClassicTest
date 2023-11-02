@@ -1,0 +1,30 @@
+﻿@using Entities.Concrete
+@model List<ProductProperty>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>Ürün Bazlı Özellikler</h2>
+
+<table class="table table-hover">
+    <tr>
+        <th>Ürün Özellik Id</th>
+        <th>Ürün Id</th>
+        <th>Özellik Id</th>
+        <th>Güncelle</th>
+        <th>Sil</th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.ProductPropertyId</td>
+            <td>@item.Product.ProductName</td>
+            <td><div>@item.Property.Value</div><div>@item.Property.Key</div></td>
+            <td><a href="/ProductProperty/EditProductProperty/@item.ProductPropertyId" class="btn btn-warning">Güncelle</a></td>
+            <td><a href="/ProductProperty/DeleteProductProperty/@item.ProductPropertyId" class="btn btn-danger">Sil</a></td>
+        </tr>
+    }
+</table>
+<br />
+<a href="/ProductProperty/AddProductProperty" class="btn btn-info">Ürüne Özellik Ekle</a>

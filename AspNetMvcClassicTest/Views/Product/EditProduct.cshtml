@@ -1,0 +1,42 @@
+﻿@model Entities.Concrete.Product
+@{
+    ViewBag.Title = "EditProduct";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>Ürün Güncelleme</h2>
+<br />
+@using (Html.BeginForm("EditProduct", "Product", FormMethod.Post))
+{
+    <div class="form-group">
+        @Html.Label("Ürün Id")
+        @Html.TextBoxFor(x => x.ProductId, new { @class = "form-control" })
+        @Html.ValidationMessageFor(x => x.ProductId)
+        <br /><br />
+        @Html.Label("Ürün Adı")
+        @Html.TextBoxFor(x => x.ProductName, new { @class = "form-control" })
+        @Html.ValidationMessageFor(x => x.ProductName)
+        <br /><br />
+        @Html.Label("Kategori")
+        @Html.DropDownListFor(x => x.CategoryId, (List<SelectListItem>)ViewBag.vlc,
+         new { @class = "form-control" })
+        <br /><br />
+        @Html.Label("Fiyat")
+        @Html.TextBoxFor(x => x.Price, new { @class = "form-control" })
+        @Html.ValidationMessageFor(x => x.Price)
+        <br /><br />
+        @Html.Label("Ürün Resim Yolu")
+        @Html.TextBoxFor(x => x.ImagePath, new { @class = "form-control" })
+        @Html.ValidationMessageFor(x => x.ImagePath)
+        <br /><br />
+        @Html.Label("Oluşturulma Zamanı")
+        @Html.TextBoxFor(x => x.CreateDate, "{0:yyyy-MM-dd}", new { @class = "form-control", type = "date" })
+        <br /><br />
+        @Html.Label("Oluşturan Kişi Id")
+        @Html.TextBoxFor(x => x.CreateUserId, new { @class = "form-control" })
+        <br /><br />
+        <button class="btn btn-success">Kaydet</button>
+    </div>
+}
+
+

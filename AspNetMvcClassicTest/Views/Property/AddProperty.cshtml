@@ -1,0 +1,22 @@
+﻿@model Entities.Concrete.Property
+@{
+    ViewBag.Title = "AddProperty";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>Özellik Ekle</h2>
+<br />
+@using (Html.BeginForm("AddProperty", "Property", FormMethod.Post))
+{
+    <div class="form-group">
+        @Html.Label("Özellik Adı")
+        @Html.TextBoxFor(x => x.Key, new { @class = "form-control" })
+        @Html.ValidationMessageFor(x => x.Key)
+        <br /><br />
+        @Html.Label("Değeri")
+        @Html.TextBoxFor(x => x.Value, new { @class = "form-control" })
+        @Html.ValidationMessageFor(x => x.Value)
+        <br /><br />
+        <button class="btn btn-success">Kaydet</button>
+    </div>
+}

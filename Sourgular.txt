@@ -1,0 +1,70 @@
+
+SELECT Student
+FROM @Coursestudent
+GROUP BY Student
+HAVING COUNT(DISTINCT CourseID) = (SELECT COUNT(*) FROM @Course);
+-----------------------------------------------------------------------
+SELECT CustomerId
+       CASE 
+           WHEN COUNT(*) < 3 THEN NULL
+           ELSE AVG(TotalAmount)
+       END AS Avarage
+FROM (SELECT CustomerId, TotalAmount
+      FROM @CustomerOperation
+      ORDER BY EventDate DESC
+      LIMIT 3) AS Last
+GROUP BY CustomerId
+
+------------------------------------------------------------------------
+List assigned roles for provided user (Belirtilen kullanıcı için atanmış rolleri listeleyen işlev):
+CREATE FUNCTION ListAssignedRolesForUser (@UserID int)
+RETURNS TABLE
+AS
+RETURN (
+    SELECT R.RoleID, R.RoleName
+    FROM @UserRoleAssignnent URA
+    JOIN @Role R ON URA.RoleID = R.RoleID
+    WHERE URA.UserID = @UserID
+);
+
+List assigned users for provided role (Belirtilen rol için atanmış kullanıcıları listeleyen işlev):
+
+CREATE FUNCTION ListAssignedUsersForRole (@RoleID int)
+RETURNS TABLE
+AS
+RETURN (
+    SELECT U.UserID, U.UserName
+    FROM @UserRoleAssignnent URA
+    JOIN @User U ON URA.UserID = U.UserID
+    WHERE URA.RoleID = @RoleID
+);
+
+------------------------------------------------------------------------
+
+declare @StudentCourse table
+(
+Student nvarchar (100),
+Course nvarchar(100)
+)
+insert @StudentCourse values ('Student A','Course X')
+insert @StudentCourse values ('Student A','Course X')
+insert @StudentCourse values ('Student A','Course X')
+insert @StudentCourse values ('Student B','Course Y')
+insert @StudentCourse values ('Student B','Course Y')
+insert @StudentCourse values ('Student C','Course X')
+insert @StudentCourse values ('Student C','Course X')
+insert @StudentCourse values ('Student D','Course X')
+insert @StudentCourse values ('Student E','Course X')
+insert @StudentCourse values ('Student E','Course X')
+insert @StudentCourse values ('Student E','Course X')
+
+;WITH CTE AS (
+    SELECT Student, Course, 
+           ROW_NUMBER() OVER (PARTITION BY Student, Course ORDER BY (SELECT NULL)) AS RowNum
+    FROM @StudentCourse
+)
+
+DELETE FROM CTE
+WHERE RowNum > 1;
+
+SELECT * FROM @StudentCourse;

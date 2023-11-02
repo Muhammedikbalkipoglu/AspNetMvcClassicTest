@@ -1,0 +1,30 @@
+﻿@using Entities.Concrete
+@model List<Category>
+
+@{
+    Layout = null;
+}
+<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+<table class="table table-hover">
+    <tr>
+        <th>Id</th>
+        <th>Kategori Adı</th>
+        <th>Üst Kategori</th>
+        <th>Aktiflik Durumu</th>
+        <th>Oluşturulma Zamanı</th>
+        <th>Oluşturan Kişi</th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.CategoryId</td>
+            <td>@item.CategoryName</td>
+            <td>@item.ParentCategoryId</td>
+            <td>@item.IsDeleted</td>
+            <td>@item.CreateDate</td>
+            <td>@item.CreateUserId</td>
+        </tr>
+    }
+</table>
+<br />
+<a href="/Category/AddCategory" class="btn btn-info">Yeni Kategori</a>

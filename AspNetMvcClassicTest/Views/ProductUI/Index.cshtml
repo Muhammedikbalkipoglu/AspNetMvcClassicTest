@@ -1,0 +1,63 @@
+﻿@using Entities.Concrete
+@model List<Product>
+
+<h2>Ürünler</h2>
+
+@*@using (Html.BeginForm("Index", "ProductUI", FormMethod.Post))
+    {
+        <span>Kategori adı:</span> @Html.TextBox("categoryName")
+        <input type="submit" value="Ara" />
+        <br />
+        <br />
+        <table class="table table-hover">
+            <tr>
+
+                <th>Ürün Adı</th>
+                <th>Kategori</th>
+                <th>Fiyat</th>
+                <th>Resmi</th>
+            </tr>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.ProductName</td>
+                    <td>@item.Category.CategoryName</td>
+                    <td>@(decimal.Divide(item.Price, ViewBag.dolar).ToString("c3", new System.Globalization.CultureInfo("en-US")))</td>
+                    <td>
+                        <img src="@item.ImagePath" width="100px" height="100px" />
+
+                    </td>
+                </tr>
+            }
+        </table>
+    }*@
+<br />
+@using (Html.BeginForm("Index", "ProductUI", FormMethod.Post))
+{
+    <span>Kategori adı:</span> @Html.TextBox("categoryName")
+    <input type="submit" value="Ara" />
+    <br />
+    <br />
+
+    <div class="card-group">
+        @foreach (var item in Model)
+        {
+
+            <div class="card" style="width: 18rem;">
+                <img src="@item.ImagePath" width="200px" height="200px" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <div class="card-header">@item.Category.CategoryName</div>
+                    <h5 class="card-title">@item.ProductName</h5>
+                    @foreach (var item2 in (ViewBag.listProductProperty as List<ProductProperty>).Where(x => x.ProductId == item.ProductId))
+                    {
+                        <p class="card-text">@item2.Property.Key @item2.Property.Value</p>
+
+                    }
+                <h3 class="card-text">Fiyat : @(decimal.Divide(item.Price, ViewBag.dolar).ToString("c3", new System.Globalization.CultureInfo("en-US")))</h3>
+                </div>
+            </div>
+
+        }
+    </div>
+}
+

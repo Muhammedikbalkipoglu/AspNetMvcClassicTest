@@ -1,0 +1,31 @@
+﻿@model Entities.Concrete.Category
+@{
+    Layout = null;
+}
+<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+<h1>Yeni Kategory Ekle</h1>
+<br />
+
+@using (Html.BeginForm("AddCategory", "Category", FormMethod.Post))
+{
+   <div class="form-group">
+       @Html.Label("Kategori Adı")
+       @Html.TextBoxFor(x => x.CategoryName)
+       @Html.ValidationMessageFor(x => x.CategoryName)
+       <br /><br />
+       @Html.Label("Üst Kategori Id")
+       @Html.TextBoxFor(x => x.ParentCategoryId)
+       @Html.ValidationMessageFor(x => x.ParentCategoryId)
+       <br /><br />
+       @Html.Label("Silinme Durumu")
+       @Html.TextBoxFor(x => x.IsDeleted)
+       <br /><br />
+       @Html.Label("Oluşturulma Zamanı")
+       @Html.TextBoxFor(x => x.CreateDate)
+       <br /><br />
+       @Html.Label("Oluşturan Kişi")
+       @Html.TextBoxFor(x => x.CreateUserId)
+       <br /><br />
+       <button>Kaydet</button>
+   </div>
+}

@@ -1,0 +1,29 @@
+﻿@model Entities.Concrete.Property
+@{
+    ViewBag.Title = "EditProperty";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>Özellik Güncelle</h2>
+<br />
+@using (Html.BeginForm("EditProperty", "Property", FormMethod.Post))
+{
+    <div class="form-group">
+        @Html.Label("Özellik Id")
+        @Html.TextBoxFor(x => x.PropertyId, new { @class = "form-control" })
+        @Html.ValidationMessageFor(x => x.PropertyId)
+        <br /><br />
+        @Html.Label("Özellik Adı")
+        @Html.TextBoxFor(x => x.Key, new { @class = "form-control" })
+        @Html.ValidationMessageFor(x => x.Key)
+        <br /><br />
+        @Html.Label("Özellik Değeri")
+        @Html.TextBoxFor(x => x.Value, new { @class = "form-control" })
+        @Html.ValidationMessageFor(x => x.Value)
+        <br /><br />
+
+        <br /><br />
+        <button class="btn btn-success">Kaydet</button>
+    </div>
+}
+

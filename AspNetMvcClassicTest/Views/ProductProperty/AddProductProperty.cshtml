@@ -1,0 +1,22 @@
+﻿@model Entities.Concrete.ProductProperty
+@{
+    ViewBag.Title = "ProductProperty";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>Ürüne Özellik Ekle</h2>
+<br />
+@using (Html.BeginForm("AddProductProperty", "ProductProperty", FormMethod.Post))
+{
+    <div class="form-group">
+        @Html.Label("Ürün Seç")
+        @Html.DropDownListFor(x => x.ProductId, (List<SelectListItem>)ViewBag.vlc,
+         new { @class = "form-control" })
+        <br /><br />
+        @Html.Label("Özellik Seç")
+        @Html.DropDownListFor(x => x.PropertyId, (List<SelectListItem>)ViewBag.dlc,
+         new { @class = "form-control" })
+        <br /><br />
+        <button class="btn btn-success">Kaydet</button>
+    </div>
+}

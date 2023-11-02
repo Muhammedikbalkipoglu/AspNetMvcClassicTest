@@ -1,0 +1,24 @@
+﻿
+@{
+    Layout = null;
+}
+<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+<h2>Admin Girişi</h2>
+<br />
+
+@using (Html.BeginForm("Index", "Login", FormMethod.Post))
+{
+    <div class="form-group">
+        <label for="exampleInputEmail1">Kullanıcı Adı</label>
+        <br />
+        <input type="text" class="form-control" id="exampleInputEmail1" name="UserName" aria-describedby="emailHelp" placeholder="Kullanıcı Adı Girin">
+    </div>
+    <br />
+    <div class="form-group">
+        <label for="exampleInputPassword1">Şifre</label>
+        <br />
+        <input type="password" class="form-control" name="Saltpassword" id="exampleInputPassword1" placeholder="Şifre">
+    </div>
+    <br />
+    <button type="submit" class="btn btn-primary">Giriş</button>
+}

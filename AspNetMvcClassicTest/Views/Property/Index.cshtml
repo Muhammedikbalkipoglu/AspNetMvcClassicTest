@@ -1,0 +1,32 @@
+﻿@using Entities.Concrete
+@model List<Property>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>Özellikler</h2>
+<br /> <br />
+<table class="table table-hover">
+    <tr>
+        <th>Özellik Id</th>
+        <th>Özellik Adı</th>
+        <th>Özellik Değeri</th>
+        <th>Güncelle</th>
+        <th>Sil</th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.PropertyId</td>
+            <td>@item.Key</td>
+            <td>@item.Value</td>
+            <td><a href="/Property/EditProperty/@item.PropertyId" class="btn btn-warning">Güncelle</a></td>
+            <td><a href="/Property/DeleteProperty/@item.PropertyId" class="btn btn-danger">Sil</a></td>
+        </tr>
+    }
+</table>
+<br />
+<a href="/Property/AddProperty" class="btn btn-info">Yeni Özellik</a>
+

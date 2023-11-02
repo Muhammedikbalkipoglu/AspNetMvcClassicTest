@@ -1,0 +1,59 @@
+﻿@using Entities.Concrete
+@model List<Product>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>Ürünler</h2>
+@using (Html.BeginForm("Index", "Product", FormMethod.Post))
+{
+    <span>Kategori adı:</span> @Html.TextBox("categoryName")
+    <input type="submit" value="Ara" />
+    <br />
+    <br />
+
+    <table class="table table-hover">
+        <tr>
+            <th>Ürün Id</th>
+            <th>Ürün Adı</th>
+            <th>Kategori</th>
+            <th>Fiyat</th>
+            <th>Resim</th>
+            <th>Aktiflik Durumu</th>
+            <th>Oluşturulma Zamanı</th>
+            <th>Oluşturan Kişi</th>
+            <th>Güncelle</th>
+            <th>Sil</th>
+        </tr>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.ProductId</td>
+                <td>@item.ProductName</td>
+                <td>@item.Category.CategoryName</td>
+                <td>@(decimal.Divide(item.Price, ViewBag.dolar).ToString("c3", new System.Globalization.CultureInfo("en-US")))</td>
+                <td><img src="@item.ImagePath" width="100px" height="100px" /></td>
+                <td>@item.IsDeleted</td>
+                <td>@item.CreateDate</td>
+                <td>@item.CreateUserId</td>
+                <td><a href="/Product/EditProduct/@item.ProductId" class="btn btn-warning">Güncelle</a></td>
+                <td><a href="/Product/DeleteProduct/@item.ProductId" class="btn btn-danger">Sil</a></td>
+            </tr>
+        }
+    </table>
+}
+<br />
+<a href="/Product/AddProduct" class="btn btn-info">Yeni Ürün</a>
+
+<script type="text/javascript">
+    var interval = 10000;
+    setInterval(function () { Update() }, interval);
+
+    function Update() {
+
+        location.reload();
+
+
+    }
+</script>
